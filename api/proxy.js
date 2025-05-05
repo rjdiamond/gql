@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const upstreamResponse = await fetch('https://nbatopshot.com/graphql', {
+    const upstreamResponse = await fetch('https://nbatopshot.com/marketplace/graphql', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
