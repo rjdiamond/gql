@@ -23,15 +23,13 @@ export default async function handler(req, res) {
 
     const text = await upstreamResponse.text();
 
-    try {
-      const json = JSON.parse(text);
-      res.status(200).json(json);
-    } catch (parseError) {
-      console.error('Failed to parse JSON from upstream:', text);
-      res.status(502).json({ error: 'Invalid JSON from NBA Top Shot', raw: text });
-    }
-  } catch (fetchError) {
-    console.error('Fetch to NBA Top Shot failed:', fetchError);
-    res.status(500).json({ error: 'Internal server error', details: fetchError.message });
+    res.status(upstreamResponse.status).json({
+      status: upstreamResponse.status,
+      statusText: upstreamResponse.statusText,
+      headers: Object.fromEntries(upstreamResponse.headers.entries()),
+      bodyPreview: text.slice(0, 500) // limit size for easier viewing
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error', details: error.message });
   }
 }
