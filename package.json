@@ -1,9 +1,8 @@
 {
   "name": "graphql-topshot-proxy",
   "version": "1.0.0",
-  "main": "api/proxy.js",
   "scripts": {
     "start": "vercel dev"
   },
-  "dependencies": "none"
+  "dependencies": {}
 }
